@@ -1,15 +1,12 @@
-/* eslint-disable react/no-unstable-nested-components */
 import { Link, Redirect, SplashScreen, Tabs } from 'expo-router';
+import { Bolt, Layers2, SwatchBook } from 'lucide-react-native';
 import React, { useCallback, useEffect } from 'react';
 
+import TabBar from '@/components/tab-bar.tsx';
 import { Pressable, Text } from '@/components/ui';
-import {
-  Feed as FeedIcon,
-  Settings as SettingsIcon,
-  Style as StyleIcon,
-} from '@/components/ui/icons';
 import { useAuth, useIsFirstTime } from '@/lib';
 
+// eslint-disable-next-line max-lines-per-function
 export default function TabLayout() {
   const status = useAuth.use.status();
   const [isFirstTime] = useIsFirstTime();
@@ -31,24 +28,48 @@ export default function TabLayout() {
     return <Redirect href="/login" />;
   }
   return (
-    <Tabs>
+    <Tabs
+      tabBar={(props) => <TabBar {...props} />}
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: 'rgba(44,44,44,0.7)', // semi-transparent dark grey
+          position: 'absolute',
+          borderTopWidth: 0,
+          borderTopEndRadius: 40,
+          borderTopLeftRadius: 40,
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
           title: 'Feed',
-          tabBarIcon: ({ color }) => <FeedIcon color={color} />,
+          tabBarIcon: ({ color, focused }) => (
+            <Layers2
+              color={focused ? color : undefined}
+              className={
+                focused ? color : 'text-neutral-200 dark:text-neutral-500'
+              }
+            />
+          ),
           headerRight: () => <CreateNewPostLink />,
-          tabBarButtonTestID: 'feed-tab',
         }}
       />
 
       <Tabs.Screen
         name="style"
         options={{
-          title: 'Style',
+          title: 'Themes',
           headerShown: false,
-          tabBarIcon: ({ color }) => <StyleIcon color={color} />,
-          tabBarButtonTestID: 'style-tab',
+          tabBarIcon: ({ color, focused }) => (
+            <SwatchBook
+              color={focused ? color : undefined}
+              className={
+                focused ? '' : 'text-neutral-200 dark:text-neutral-500'
+              }
+            />
+          ),
         }}
       />
       <Tabs.Screen
@@ -56,8 +77,14 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           headerShown: false,
-          tabBarIcon: ({ color }) => <SettingsIcon color={color} />,
-          tabBarButtonTestID: 'settings-tab',
+          tabBarIcon: ({ color, focused }) => (
+            <Bolt
+              color={focused ? color : undefined}
+              className={
+                focused ? '' : 'text-neutral-200 dark:text-neutral-500'
+              }
+            />
+          ),
         }}
       />
     </Tabs>
