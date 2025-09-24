@@ -2,7 +2,7 @@ import { Link, Redirect, SplashScreen, Tabs } from 'expo-router';
 import { Bolt, Layers2, SwatchBook } from 'lucide-react-native';
 import React, { useCallback, useEffect } from 'react';
 
-import TabBar from '@/components/tab-bar.tsx';
+import TabBar from '@/components/tab-bar';
 import { Pressable, Text } from '@/components/ui';
 import { useAuth, useIsFirstTime } from '@/lib';
 
@@ -32,13 +32,6 @@ export default function TabLayout() {
       tabBar={(props) => <TabBar {...props} />}
       screenOptions={{
         tabBarShowLabel: false,
-        tabBarStyle: {
-          backgroundColor: 'rgba(44,44,44,0.7)', // semi-transparent dark grey
-          position: 'absolute',
-          borderTopWidth: 0,
-          borderTopEndRadius: 40,
-          borderTopLeftRadius: 40,
-        },
       }}
     >
       <Tabs.Screen
@@ -58,7 +51,7 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="style"
+        name="theme"
         options={{
           title: 'Themes',
           headerShown: false,

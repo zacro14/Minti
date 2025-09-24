@@ -12,7 +12,7 @@ export default function TabBar({
     <BlurView
       tint="dark"
       intensity={20}
-      className="absolute inset-x-0 bottom-0 h-28 flex-row overflow-hidden rounded-t-3xl border-0 bg-charcoal-900/45 px-5 py-2"
+      className="absolute inset-x-0 bottom-0 m-5 mb-6 flex-row overflow-hidden rounded-full border-0 bg-charcoal-900/45 px-5 py-2"
     >
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
